@@ -8,19 +8,19 @@
 
     <Main/>
 
-    <footer>
-      © 2020 Ilya Hrytsuk
-    </footer>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Main from './components/Main.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
-    Main
+    Main,
+    Footer
   }
 }
 </script>
