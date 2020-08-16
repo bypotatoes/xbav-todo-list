@@ -2,7 +2,7 @@
   <li class="todo-item">
     <h3 class="title">
       {{todo.title}}
-      <span class="due-date">{{humanizedDueDate}}</span>
+      <span class="due-date">{{todo.dueDate}}</span>
     </h3>
     <p class="description">{{todo.description}}</p>
   </li>
@@ -13,12 +13,7 @@ export default {
   name: 'TodoItem',
   props: [
     'todo',
-  ],
-  computed: {
-    humanizedDueDate: function() {
-      return this.todo.dueDate.toISOString().split("T")[0]
-    }
-  },
+  ]
 }
 </script>
 
