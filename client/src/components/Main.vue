@@ -15,6 +15,7 @@
         v-for="(todo, index) in todos"
         :key="index"
         :todo="todo"
+        @on-remove="todos.splice(index, 1)"
       ></li>
     </ul>
   </main>
@@ -38,7 +39,13 @@ export default {
           title: 'Joy life',
           description: 'til the end',
           dueDate: '2020-12-31'
-        }
+        },
+        {
+          id: 2,
+          title: '42',
+          description: 'Answer to the Ultimate Question of Life, the Universe, and Everything',
+          dueDate: '9999-12-31'
+        },
       ]
     }
   },

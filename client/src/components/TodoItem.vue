@@ -1,8 +1,9 @@
 <template>
   <li class="todo-item">
     <h3 class="title">
-      {{todo.title}}
+      <span class="title__text">{{todo.title}}</span>
       <span class="due-date">{{todo.dueDate}}</span>
+      <button @click="$emit('on-remove')">Remove</button>
     </h3>
     <p class="description">{{todo.description}}</p>
   </li>
@@ -31,9 +32,14 @@ export default {
   margin-bottom: 0;
 }
 
+.title__text {
+  flex: 1;
+}
+
 .due-date {
   opacity: 60%;
   font-size: 14px;
   font-weight: 500;
+  padding: 0 5px;
 }
 </style>
