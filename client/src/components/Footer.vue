@@ -14,3 +14,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+footer {
+  font-size: 13px;
+  padding-top: 10px;
+}
+</style>
