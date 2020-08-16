@@ -15,7 +15,7 @@
         v-for="(todo, index) in todos"
         :key="index"
         :todo="todo"
-        @on-remove="todos.splice(index, 1)"
+        @on-remove="onTodoRemove(index, todo.id)"
       ></li>
     </ul>
   </main>
@@ -46,6 +46,10 @@ export default {
       this.todos.push(todo);
 
       TodoService.createTodo(todo)
+    },
+    onTodoRemove: function(index, id) {
+      this.todos.splice(index, 1)
+      TodoService.removeTodo(id)
     }
   }
 }

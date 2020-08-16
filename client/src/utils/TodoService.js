@@ -13,5 +13,10 @@ export default {
       },
       body: JSON.stringify(newTodo)
     });
+  },
+  removeTodo(id) {
+    return fetch(`${apiBaseUrl}/${id}`, {
+      method: 'DELETE',
+    });
   }
 }

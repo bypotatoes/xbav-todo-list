@@ -24,10 +24,14 @@ rom = ROM.container(:sql, 'sqlite::memory') do |config|
 end
 
 class TodoRepo < ROM::Repository[:todos]
-  commands :create
+  commands :create, delete: :by_pk
 
   def all
     todos.to_a
+  end
+
+  def by_id(id)
+    todos.by_pk(id).one!
   end
 end
 
@@ -70,4 +74,12 @@ post '/todos' do
   todo = todo_repo.create(todo_params)
 
   json todo
+end
+
+delete '/todos/:id' do
+  todo_id = params[:id]
+
+  todo_repo.delete(todo_id)
+
+  json todo_id
 end
