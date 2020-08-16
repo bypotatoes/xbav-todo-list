@@ -44,6 +44,8 @@ export default {
   methods: {
     onTodoAdd: function(todo) {
       this.todos.push(todo);
+
+      TodoService.createTodo(todo)
     }
   }
 }

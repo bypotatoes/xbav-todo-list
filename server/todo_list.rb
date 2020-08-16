@@ -6,7 +6,7 @@ require 'rom-repository'
 require 'pry'
 
 set :allow_origin, '*'
-set :allow_methods, 'GET,HEAD,POST'
+set :allow_methods, 'GET,HEAD,POST,DELETE'
 set :allow_headers, 'content-type,if-modified-since'
 set :expose_headers, 'location,link'
 
@@ -66,7 +66,7 @@ end
 
 post '/todos' do
   todo_json = request.body.read
-  todo_params = JSON.parse(todo_json)
+  todo_params = JSON.parse(todo_json, symbolize_names: true)
   todo = todo_repo.create(todo_params)
 
   json todo
