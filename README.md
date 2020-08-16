@@ -31,3 +31,10 @@ Bonus:
 - Save / Write data on a json
 ----------------------------------------------------------------
 We don’t expect a perfect Web Application, just give us a glimpse of what we can expect from you.
+
+
+## How to run
+
+Client: `cd client && yarn serve`
+
+Server: `cd server && ruby todo_list.rb`
