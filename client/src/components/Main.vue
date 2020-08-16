@@ -24,6 +24,7 @@
 <script>
 import TodoForm from './TodoForm.vue'
 import TodoItem from './TodoItem.vue'
+import TodoService from '../utils/TodoService.js'
 
 export default {
   name: 'Main',
@@ -31,22 +32,13 @@ export default {
     TodoItem,
     TodoForm,
   },
+  mounted() {
+    TodoService.getTodos()
+      .then(todosData => (this.todos = todosData));
+  },
   data: function() {
     return {
-      todos: [
-        {
-          id: 1,
-          title: 'Joy life',
-          description: 'til the end',
-          dueDate: '2020-12-31'
-        },
-        {
-          id: 2,
-          title: '42',
-          description: 'Answer to the Ultimate Question of Life, the Universe, and Everything',
-          dueDate: '9999-12-31'
-        },
-      ]
+      todos: []
     }
   },
   methods: {

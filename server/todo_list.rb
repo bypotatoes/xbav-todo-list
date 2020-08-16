@@ -3,6 +3,7 @@ require 'sinatra/json'
 require 'sinatra/cors'
 require 'rom'
 require 'rom-repository'
+require 'pry'
 
 set :allow_origin, '*'
 set :allow_methods, 'GET,HEAD,POST'
@@ -23,6 +24,8 @@ rom = ROM.container(:sql, 'sqlite::memory') do |config|
 end
 
 class TodoRepo < ROM::Repository[:todos]
+  commands :create
+
   def all
     todos.to_a
   end
@@ -30,6 +33,41 @@ end
 
 todo_repo = TodoRepo.new(rom)
 
+todo_seeds = [
+  {
+    title: 'Joy life',
+    description: 'till the end',
+    due_date: '2020-12-13'
+  },
+  {
+    title: 'Shopping',
+    description: 'Buy -14 egs',
+    due_date: Date.today.to_s
+  },
+  {
+    title: '42',
+    description: 'Answer to the Ultimate Question of Life, the Universe, and Everything',
+    due_date: '9999-12-31'
+  }
+]
+
+todo_seeds.each do |todo_seed|
+  todo_repo.create(todo_seed)
+end
+
 get '/todos' do
-  json todo_repo.all
+  todos = todo_repo.all.map(&:to_hash).map do |todo|
+    todo[:dueDate] = todo.delete(:due_date).to_s
+    todo
+  end
+
+  json todos
+end
+
+post '/todos' do
+  todo_json = request.body.read
+  todo_params = JSON.parse(todo_json)
+  todo = todo_repo.create(todo_params)
+
+  json todo
 end
