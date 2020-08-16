@@ -9,10 +9,13 @@
     <h2>
       TODOs
     </h2>
+
+    <Filters @on-filter-change="onFilterChange"/>
+
     <ul class="todo-list">
       <li
         is="TodoItem"
-        v-for="(todo, index) in todos"
+        v-for="(todo, index) in filteredTodos"
         :key="index"
         :todo="todo"
         @on-remove="onTodoRemove(index, todo.id)"
@@ -24,6 +27,8 @@
 <script>
 import TodoForm from './TodoForm.vue'
 import TodoItem from './TodoItem.vue'
+import Filters from './Filters.vue'
+
 import TodoService from '../utils/TodoService.js'
 
 export default {
@@ -31,6 +36,7 @@ export default {
   components: {
     TodoItem,
     TodoForm,
+    Filters,
   },
   mounted() {
     TodoService.getTodos()
@@ -38,7 +44,17 @@ export default {
   },
   data: function() {
     return {
-      todos: []
+      todos: [],
+      filterText: ''
+    }
+  },
+  computed: {
+    filteredTodos: function() {
+      return this.todos.filter(todo => {
+        if (!this.filterText) return true
+
+        return todo.title.toUpperCase().indexOf(this.filterText.toUpperCase()) > -1
+      })
     }
   },
   methods: {
@@ -50,6 +66,9 @@ export default {
     onTodoRemove: function(index, id) {
       this.todos.splice(index, 1)
       TodoService.removeTodo(id)
+    },
+    onFilterChange: function(filterText) {
+      this.filterText = filterText
     }
   }
 }
@@ -60,6 +79,7 @@ export default {
   flex: 1;
   min-width: 290px;
   max-width: 550px;
+  width: 100%;
 }
 
 h2 {
