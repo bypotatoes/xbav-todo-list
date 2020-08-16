@@ -35,6 +35,6 @@ We don’t expect a perfect Web Application, just give us a glimpse of what we c
 
 ## How to run
 
-Client: `cd client && yarn serve`
+Client: `cd client && yarn install && yarn serve`
 
-Server: `cd server && ruby todo_list.rb`
+Server: `cd server && bundle install && ruby todo_list.rb`
